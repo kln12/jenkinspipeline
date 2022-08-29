@@ -1,0 +1,25 @@
+pipeline{
+ agent any
+    stages{
+      stage('clone repository')
+      /* cloning repository to workspace */
+      steps{ 
+      checkout scm
+      }
+    }
+    stage('Build image'){
+    steps{
+    sh 'docker build -t face_mask .'
+       }
+     }
+   stage('Run image'){
+   steps{
+   sh'docker run -p 8000:8000 face_mask'
+     }
+   }
+   stage('testing'){
+   steps{
+   echo 'testing..'
+     }
+   }
+ }
